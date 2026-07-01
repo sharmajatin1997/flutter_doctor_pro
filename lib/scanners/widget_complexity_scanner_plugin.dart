@@ -45,7 +45,7 @@ class _ComplexityVisitor extends BaseAstVisitor {
     if (node.name.lexeme == 'build' &&
         node.returnType?.toString() == 'Widget') {
       final length = node.end - node.offset;
-      if (length > 3000) {
+      if (length > 5000) {
         addIssue(
           title: 'Complex Build Method',
           description: 'Build method is extremely large and complex.',

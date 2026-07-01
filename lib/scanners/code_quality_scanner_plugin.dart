@@ -139,7 +139,7 @@ class _QualityVisitor extends BaseAstVisitor {
   void visitClassDeclaration(ClassDeclaration node) {
     classCount++;
     final length = node.end - node.offset;
-    if (length > 10000) {
+    if (length > 15000) {
       addIssue(
         title: 'Large Class',
         description: 'Class ${node.safeName} is too large.',
@@ -155,7 +155,7 @@ class _QualityVisitor extends BaseAstVisitor {
   void visitMethodDeclaration(MethodDeclaration node) {
     methodCount++;
     final length = node.end - node.offset;
-    if (length > 2000) {
+    if (length > 3000) {
       addIssue(
         title: 'Large Method',
         description: 'Method ${node.safeName} is too large.',
@@ -169,6 +169,12 @@ class _QualityVisitor extends BaseAstVisitor {
 
   @override
   void visitSimpleStringLiteral(SimpleStringLiteral node) {
+    // Ignore import/export URIs
+    if (node.parent is UriBasedDirective) {
+      super.visitSimpleStringLiteral(node);
+      return;
+    }
+    
     if (node.value.length > 5) {
       stringLiterals.putIfAbsent(node.value, () => []).add(filePath);
     }

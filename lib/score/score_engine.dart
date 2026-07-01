@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter_doctor_pro/core/context.dart';
 import 'package:flutter_doctor_pro/models/issue.dart';
+import 'package:flutter_doctor_pro/utils/file_utils.dart';
 
 class CategoryScore {
   final String category;
@@ -17,26 +18,42 @@ class ScoreEngine {
 
   int _calculateCategoryScore(List<Issue> issues, String category) {
     final catIssues = issues.where((i) => i.category == category).toList();
-    int deductions = 0;
+    double deductions = 0;
+
+    // Calculate scale factor based on project size
+    int totalDartFiles = FileUtils.getDartFiles(context.directory).length;
+    if (totalDartFiles == 0) totalDartFiles = 1;
+    
+    // Assume base project size is 5 files. 
+    // E.g., a 50-file app will have a scale factor of 10.
+    double scaleFactor = (totalDartFiles / 5.0).clamp(1.0, 50.0);
 
     for (final issue in catIssues) {
+      double issuePoints = 0;
       switch (issue.severity) {
         case IssueSeverity.critical:
-          deductions += 25;
+          issuePoints = 25.0;
           break;
         case IssueSeverity.high:
-          deductions += 10;
+          issuePoints = 10.0;
           break;
         case IssueSeverity.medium:
-          deductions += 5;
+          issuePoints = 5.0;
           break;
         case IssueSeverity.low:
-          deductions += 2;
+          issuePoints = 2.0;
           break;
       }
+
+      // Make Code Quality and Complexity fair for larger apps
+      if (category == 'Code Quality' || category == 'Complexity') {
+        issuePoints = issuePoints / scaleFactor;
+      }
+
+      deductions += issuePoints;
     }
 
-    return max(0, 100 - deductions);
+    return max(0, 100 - deductions.round());
   }
 
   Map<String, CategoryScore> calculateDetailedScore(List<Issue> issues) {

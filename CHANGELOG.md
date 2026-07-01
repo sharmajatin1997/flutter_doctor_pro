@@ -1,4 +1,4 @@
-## 1.0.1
+## 1.0.2
 
 * Initial release.
 * Added `check` command for full codebase analysis (Lints, Unused Packages, Complexity, Assets).
