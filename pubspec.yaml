@@ -1,0 +1,25 @@
+name: flutter_doctor_pro
+description: A production-ready Dart CLI package that analyzes Flutter projects to generate complete health reports and optimize projects.
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.12.1
+
+executables:
+  flutter_doctor_pro:
+
+dependencies:
+  analyzer: ^14.0.0
+  args: ^2.7.0
+  crypto: ^3.0.7
+  glob: ^2.1.3
+  interact: ^2.2.0
+  path: ^1.9.1
+  yaml: ^3.1.3
+  yaml_edit: ^2.2.4
+
+dev_dependencies:
+  lints: ^6.1.0
+  mocktail: ^1.0.5
+  test: ^1.31.2
