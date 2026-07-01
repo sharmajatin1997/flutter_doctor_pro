@@ -8,8 +8,13 @@ void main(List<String> args) async {
 
     exit(exitCode ?? 0);
   } catch (e, stackTrace) {
-    stderr.writeln('An unexpected error occurred: $e');
-    stderr.writeln(stackTrace);
-    exit(1);
+    if (e.toString().contains('ProjectDoctorException') || e.toString().contains('Score below minimum threshold')) {
+      stderr.writeln(e.toString());
+      exit(1);
+    } else {
+      stderr.writeln('An unexpected error occurred: $e');
+      stderr.writeln(stackTrace);
+      exit(1);
+    }
   }
 }

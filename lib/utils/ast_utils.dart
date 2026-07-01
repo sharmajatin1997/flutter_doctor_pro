@@ -1,9 +1,11 @@
+/// Utilities for parsing and traversing Dart ASTs.
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:flutter_doctor_pro/core/context.dart';
 import 'package:flutter_doctor_pro/models/issue.dart';
 
+/// A simple wrapper around the analyzer to parse a Dart file into an AST.
 class AstParser {
   final ProjectContext context;
 
@@ -20,12 +22,14 @@ class AstParser {
   }
 }
 
+/// A base visitor that traverses an AST and collects issues.
 class BaseAstVisitor extends RecursiveAstVisitor<void> {
   final String filePath;
   final List<Issue> issues;
 
   BaseAstVisitor(this.filePath, this.issues);
 
+  /// Adds a new issue to the list of collected issues.
   void addIssue({
     required String title,
     required String description,
@@ -48,8 +52,9 @@ class BaseAstVisitor extends RecursiveAstVisitor<void> {
   }
 }
 
-// Utility extension to extract common names/values safely across analyzer versions
+/// Utility extension to extract common names/values safely across analyzer versions.
 extension AstNodeExtensions on AstNode {
+  /// Safely extracts the name of an AST node.
   String get safeName {
     if (this is ClassDeclaration) {
       return (this as ClassDeclaration).namePart.toString();

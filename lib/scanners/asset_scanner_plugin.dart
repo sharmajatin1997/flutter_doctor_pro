@@ -1,3 +1,8 @@
+/// Provides the [AssetScannerPlugin] which analyzes Flutter assets.
+/// 
+/// It checks for unused assets, oversized assets, missing assets,
+/// and duplicate image files by hashing them.
+
 import 'dart:io';
 import 'package:flutter_doctor_pro/utils/file_utils.dart';
 
@@ -7,6 +12,13 @@ import 'package:flutter_doctor_pro/core/context.dart';
 import 'package:flutter_doctor_pro/models/issue.dart';
 import 'package:flutter_doctor_pro/plugins/scanner_plugin.dart';
 
+/// A scanner plugin that analyzes the `assets` declared in `pubspec.yaml`.
+/// 
+/// This plugin will flag:
+/// * Missing assets (declared but file not found).
+/// * Unused assets (file exists but not referenced in Dart code).
+/// * Duplicate assets (multiple files with identical MD5 hash).
+/// * Oversized assets (files larger than the configured limit).
 class AssetScannerPlugin implements ScannerPlugin {
   @override
   String get name => 'Asset Scanner';

@@ -3,6 +3,7 @@ import 'package:flutter_doctor_pro/core/doctor_engine.dart';
 import 'package:flutter_doctor_pro/score/score_engine.dart';
 import 'package:flutter_doctor_pro/reports/report_generator.dart';
 import 'package:flutter_doctor_pro/models/report_model.dart';
+import 'package:flutter_doctor_pro/exceptions/exceptions.dart';
 
 class DoctorCommand extends ProjectCommand {
   @override
@@ -59,7 +60,7 @@ class DoctorCommand extends ProjectCommand {
       context.logger.error(
         'Project score $totalScore is below the required minimum of ${context.config.scoreMinimum}.',
       );
-      throw Exception('Score below minimum threshold.');
+      throw ProjectDoctorException('Score below minimum threshold.');
     }
   }
 }
