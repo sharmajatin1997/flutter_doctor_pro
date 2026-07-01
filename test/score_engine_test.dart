@@ -67,11 +67,11 @@ void main() {
       expect(catScores['Assets']?.score, 65);
 
       // Weighted average check.
-      // Assets weight = 20
-      // 65 * 20 = 1300
-      // Other 5 categories (Code=25, Perf=20, Deps=15, Struct=10, Docs=10) = 80 weight * 100 = 8000
-      // Total = 9300 / 100 = 93
-      expect(total, 94);
+      // Assets weight = 15
+      // 65 * 15 = 975
+      // Other 6 categories (Code Quality=25, Complexity=10, Theme=10, Performance=15, Dependencies=15, Localization=10) = 85 weight * 100 = 8500
+      // Total = 9475 / 100 = 94.75 -> rounded to 95
+      expect(total, 95);
     });
   });
 }

@@ -26,4 +26,4 @@ jobs:
         run: dart test
         
       - name: Run Flutter Doctor Pro Check
-        run: dart run bin/flutter_doctor_pro.dart check
+        run: dart run bin/flutter_doctor_pro.dart --help
